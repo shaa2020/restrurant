@@ -13,6 +13,15 @@ export function publicEnv() {
   };
 }
 
+/** Names of the required public variables that are missing from this build. */
+export function missingSupabaseEnv(): string[] {
+  const env = publicEnv();
+  const missing: string[] = [];
+  if (!env.supabaseUrl) missing.push("NEXT_PUBLIC_SUPABASE_URL");
+  if (!env.supabaseKey) missing.push("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY");
+  return missing;
+}
+
 export function isSupabaseConfigured() {
   const env = publicEnv();
   return Boolean(env.supabaseUrl && env.supabaseKey);
